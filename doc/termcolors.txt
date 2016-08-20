@@ -1,0 +1,230 @@
+*termcolors.txt*  Syntax highlighting 256 xterm colors
+
+Version: 0.0.1
+Author: kba (https://github.com/kba)
+License: MIT License
+Repository: https://github.com/kba/termcolors.vim
+
+==============================================================================
+CONTENTS                                                            *termcolors*
+
+Introduction ....................................|termcolors-introduction|
+Variables .......................................|termcolors-variables|
+    g:termcolors_syntax_prefix ..................|g:termcolors_syntax_prefix|
+    g:termcolors_fg .............................|g:termcolors_fg|
+    g:termcolors_fg_light .......................|g:termcolors_fg_light|
+    g:termcolors_fg_dark ........................|g:termcolors_fg_dark|
+    g:termcolors_bg .............................|g:termcolors_bg|
+    g:termcolors_bg_light .......................|g:termcolors_bg_light|
+    g:termcolors_bg_dark ........................|g:termcolors_bg_dark|
+    g:termcolors_syn_cmd ........................|g:termcolors_syn_cmd|
+    g:termcolors_syn_body .......................|g:termcolors_syn_body|
+Supported Filetypes .............................|termcolors-ft|
+    vim .........................................|termcolors-ft-vim|
+    Shell (sh, bash, zsh) .......................|termcolors-ft-sh|
+    Vim help ....................................|termcolors-ft-help|
+Tables ..........................................|termcolors-tables|
+    0-8: Basic ..................................|termcolors-8|
+    8-15: Extendend .............................|termcolors-16|
+    16-231: 256 colors ..........................|termcolors-256|
+    232-255: Gray scale .........................|termcolors-gray|
+
+==============================================================================
+INTRODUCTION                                           *termcolors-introduction*
+
+|termcolors| helps working with terminal colors by highlighting color values
+in the colors they represent.
+
+For example
+
+>
+        hi Normal ctermbg=133
+<
+
+will be rendered
+
+>
+        hi Normal ctermfg=fg133
+<
+
+(This example requires |+conceal|)
+
+
+==============================================================================
+VARIABLES                                                 *termcolors-variables*
+
+------------------------------------------------------------------------------
+|g:termcolors_syntax_prefix|                          *g:termcolors_syntax_prefix*
+
+Prefix generated highlighting groups with this string. Default: `termColor`
+
+------------------------------------------------------------------------------
+|g:termcolors_fg|                                                *g:termcolors_fg*
+
+|:hi| clause to execute for matches on the foreground color `__TERMCOLOR__`.
+
+Default:
+>
+        ctermfg=__TERMCOLOR__'
+<
+------------------------------------------------------------------------------
+|g:termcolors_fg_light|                                    *g:termcolors_fg_light*
+
+|:hi| clause to execute for matches on the foreground color `__TERMCOLOR__` if the current
+|background| is `light` and the foreground color is light too.
+
+Default:
+>
+    ctermfg=__TERMCOLOR__ ctermbg=232
+<
+------------------------------------------------------------------------------
+|g:termcolors_fg_dark|                                      *g:termcolors_fg_dark*
+
+|:hi| clause to execute for matches on the foreground color `__TERMCOLOR__` if the current
+|background| is `dark` and the foreground color is dark too.
+
+Default:
+>
+    ctermfg=__TERMCOLOR__ ctermbg=252
+<
+------------------------------------------------------------------------------
+|g:termcolors_bg|                                                *g:termcolors_bg*
+
+|:hi| clause to execute for matches on the background color `__TERMCOLOR__`.
+
+Default:
+>
+        ctermbg=__TERMCOLOR__'
+<
+------------------------------------------------------------------------------
+|g:termcolors_bg_light|                                    *g:termcolors_bg_light*
+
+|:hi| clause to execute for matches on the background color `__TERMCOLOR__` if
+the current |background| is `dark` and the background color is light
+
+Default:
+>
+    cterm=reverse ctermbg=NONE ctermfg=__TERMCOLOR__
+<
+------------------------------------------------------------------------------
+|g:termcolors_bg_dark|                                      *g:termcolors_bg_dark*
+
+|:hi| clause to execute for matches on the background color `__TERMCOLOR__` if
+the current |background| is `light` and the background color is dark.
+
+Default:
+>
+    cterm=reverse ctermbg=NONE ctermfg=__TERMCOLOR__
+<
+------------------------------------------------------------------------------
+|g:termcolors_syn_cmd|                                      *g:termcolors_syn_cmd*
+
+Can be `match` or `keyword`.
+
+Default: `keyword`
+
+------------------------------------------------------------------------------
+|g:termcolors_syn_body|                                    *g:termcolors_syn_body*
+
+Syntax command clause to execute for a given `__TERMCOLOR__` unless overridden
+for a specific filetype (see |termcolors-ft|).
+
+Default:
+>
+        __TERMCOLOR__ containedin=ALL
+<
+
+==============================================================================
+FILETYPES                                                        *termcolors-ft*
+
+------------------------------------------------------------------------------
+|vim|                                                          *termcolors-ft-vim*
+
+Will highlight colors in |ctermfg| and |ctermbg| statements
+
+>
+        hi Normal ctermfg=fg133 ctermbg=bg237
+<
+------------------------------------------------------------------------------
+|sh|                                                            *termcolors-ft-sh*
+
+Will highlight colors in ANSI escape sequences:
+>
+>
+        echo "\e[38;5;fg133m"
+        echo "\e[48;5;bg124m"
+        echo "\e[3fg1m"
+        echo "\e[4bg3m"
+
+------------------------------------------------------------------------------
+|help|                                                        *termcolors-ft-help*
+
+Will highlight colors everywhere if they follow the literals `fg` or `bg`.
+
+To see how this works, do `set conceallevel=0` and look at the
+|termcolors-tables|.
+
+==============================================================================
+TABLES                                                       *termcolors-tables*
+
+-------------------------------------------------------------------------------
+0-8: basic ANSI colors                                            *termcolors-8*
+                                                               *termcolors-fg-8*
+fg  0fg  1fg  2fg  3fg  4fg  5fg  6fg  7
+                                                               *termcolors-bg-8*
+bg  0bg  1bg  2bg  3bg  4bg  5bg  6bg  7
+
+-------------------------------------------------------------------------------
+8-16: extended "bright" colors                                   *termcolors-16*
+                                                              *termcolors-fg-16*
+fg  8fg  9fg 10fg 11fg 12fg 13fg 14fg 15
+                                                              *termcolors-bg-16*
+bg  8bg  9bg 10bg 11bg 12bg 13bg 14bg 15
+
+-------------------------------------------------------------------------------
+17-231: 256 colors supported by xterm and compatible             *termcolor-256*
+                                                             *termcolors-fg-256*
+
+fg  16fg  17fg  18fg  19fg  20fg  21  fg  52fg  53fg  54fg  55fg  56fg  57  fg  88fg  89fg  90fg  91fg  92fg  93
+fg  22fg  23fg  24fg  25fg  26fg  27  fg  58fg  59fg  60fg  61fg  62fg  63  fg  94fg  95fg  96fg  97fg  98fg  99
+fg  28fg  29fg  30fg  31fg  32fg  33  fg  64fg  65fg  66fg  67fg  68fg  69  fg 100fg 101fg 102fg 103fg 104fg 105
+fg  34fg  35fg  36fg  37fg  38fg  39  fg  70fg  71fg  72fg  73fg  74fg  75  fg 106fg 107fg 108fg 109fg 110fg 111
+fg  40fg  41fg  42fg  43fg  44fg  45  fg  76fg  77fg  78fg  79fg  80fg  81  fg 112fg 113fg 114fg 115fg 116fg 117
+fg  46fg  47fg  48fg  49fg  50fg  51  fg  82fg  83fg  84fg  85fg  86fg  87  fg 118fg 119fg 120fg 121fg 122fg 123
+
+fg 124fg 125fg 126fg 127fg 128fg 129  fg 160fg 161fg 162fg 163fg 164fg 165  fg 196fg 197fg 198fg 199fg 200fg 201
+fg 130fg 131fg 132fg 133fg 134fg 135  fg 166fg 167fg 168fg 169fg 170fg 171  fg 202fg 203fg 204fg 205fg 206fg 207
+fg 136fg 137fg 138fg 139fg 140fg 141  fg 172fg 173fg 174fg 175fg 176fg 177  fg 208fg 209fg 210fg 211fg 212fg 213
+fg 142fg 143fg 144fg 145fg 146fg 147  fg 178fg 179fg 180fg 181fg 182fg 183  fg 214fg 215fg 216fg 217fg 218fg 219
+fg 148fg 149fg 150fg 151fg 152fg 153  fg 184fg 185fg 186fg 187fg 188fg 189  fg 220fg 221fg 222fg 223fg 224fg 225
+fg 154fg 155fg 156fg 157fg 158fg 159  fg 190fg 191fg 192fg 193fg 194fg 195  fg 226fg 227fg 228fg 229fg 230fg 231
+
+                                                             *termcolors-fg-256*
+
+bg  16bg  17bg  18bg  19bg  20bg  21  bg  52bg  53bg  54bg  55bg  56bg  57  bg  88bg  89bg  90bg  91bg  92bg  93
+bg  22bg  23bg  24bg  25bg  26bg  27  bg  58bg  59bg  60bg  61bg  62bg  63  bg  94bg  95bg  96bg  97bg  98bg  99
+bg  28bg  29bg  30bg  31bg  32bg  33  bg  64bg  65bg  66bg  67bg  68bg  69  bg 100bg 101bg 102bg 103bg 104bg 105
+bg  34bg  35bg  36bg  37bg  38bg  39  bg  70bg  71bg  72bg  73bg  74bg  75  bg 106bg 107bg 108bg 109bg 110bg 111
+bg  40bg  41bg  42bg  43bg  44bg  45  bg  76bg  77bg  78bg  79bg  80bg  81  bg 112bg 113bg 114bg 115bg 116bg 117
+bg  46bg  47bg  48bg  49bg  50bg  51  bg  82bg  83bg  84bg  85bg  86bg  87  bg 118bg 119bg 120bg 121bg 122bg 123
+
+bg 124bg 125bg 126bg 127bg 128bg 129  bg 160bg 161bg 162bg 163bg 164bg 165  bg 196bg 197bg 198bg 199bg 200bg 201
+bg 130bg 131bg 132bg 133bg 134bg 135  bg 166bg 167bg 168bg 169bg 170bg 171  bg 202bg 203bg 204bg 205bg 206bg 207
+bg 136bg 137bg 138bg 139bg 140bg 141  bg 172bg 173bg 174bg 175bg 176bg 177  bg 208bg 209bg 210bg 211bg 212bg 213
+bg 142bg 143bg 144bg 145bg 146bg 147  bg 178bg 179bg 180bg 181bg 182bg 183  bg 214bg 215bg 216bg 217bg 218bg 219
+bg 148bg 149bg 150bg 151bg 152bg 153  bg 184bg 185bg 186bg 187bg 188bg 189  bg 220bg 221bg 222bg 223bg 224bg 225
+bg 154bg 155bg 156bg 157bg 158bg 159  bg 190bg 191bg 192bg 193bg 194bg 195  bg 226bg 227bg 228bg 229bg 230bg 231
+
+                                                              *termcolors-grey*
+232-255: Gray scale                                           *termcolors-gray*
+
+                                                           *termcolors-fg-gray*
+fg232fg 233fg 234fg 235fg 236fg 237fg 238fg 239fg 240fg 241fg 242fg 243
+fg244fg 245fg 246fg 247fg 248fg 249fg 250fg 251fg 252fg 253fg 254fg 255
+
+                                                           *termcolors-bg-gray*
+bg232bg 233bg 234bg 235bg 236bg 237bg 238bg 239bg 240bg 241bg 242bg 243
+bg244bg 245bg 246bg 247bg 248bg 249bg 250bg 251bg 252bg 253bg 254bg 255
+
+==============================================================================
+aim:tw=78:sw=4:ts=8:ft=help:norl:et:
